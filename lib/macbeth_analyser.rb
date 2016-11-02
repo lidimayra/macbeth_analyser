@@ -2,9 +2,15 @@ class MacbethAnalyser
 
 require 'nokogiri'
 require 'open-uri'
+require 'set'
+
+  def lines_per_each_speaker
+    speakers.each do |speaker|
+      puts "#{lines_per speaker} #{speaker}"
+    end
+  end
 
   def lines_per(speaker)
-    speeches = []
     lines = 0
 
     open_file.css("speech").each do |speech|
@@ -28,7 +34,7 @@ require 'open-uri'
 
   def open_file
     url = "http://www.ibiblio.org/xml/examples/shakespeare/macbeth.xml"
-    Nokogiri::HTML open(url)
+    @content ||= Nokogiri::HTML open(url)
   end
 
 end

@@ -35,4 +35,16 @@ describe 'Macbeth Analyser' do
       it { is_expected.to eq 23 }
     end
   end
+
+  context 'when listing every line count per speaker' do
+    subject { macbeth_analyser.lines_per_each_speaker }
+
+    let(:output) do
+      macbeth_analyser.speakers.each do |speaker|
+        "#{macbeth_analyser.lines_per speaker} #{speaker}"
+      end
+    end
+
+    it { is_expected.to eq output }
+  end
 end

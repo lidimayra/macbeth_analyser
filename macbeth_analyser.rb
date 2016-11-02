@@ -1,1 +1,2 @@
-MacbethAnalyser.new
+require_relative 'lib/macbeth_analyser'
+MacbethAnalyser.new.lines_per_each_speaker
