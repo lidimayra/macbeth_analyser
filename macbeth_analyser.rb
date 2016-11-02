@@ -1,0 +1,1 @@
+MacbethAnalyser.new
