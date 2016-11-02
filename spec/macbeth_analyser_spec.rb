@@ -16,4 +16,23 @@ describe 'Macbeth Analyser' do
       expect(speakers.count).to eq 40
     end
   end
+
+  context 'when counting lines per speaker' do
+    subject { macbeth_analyser.lines_per speaker }
+
+    context 'for Soldiers' do
+      let(:speaker) { 'Soldiers' }
+      it { is_expected.to eq 1 }
+    end
+
+    context 'for Lord' do
+      let(:speaker) { 'Lord' }
+      it { is_expected.to eq 21 }
+    end
+
+    context 'for Gentlewoman' do
+      let(:speaker) { 'Gentlewoman' }
+      it { is_expected.to eq 23 }
+    end
+  end
 end

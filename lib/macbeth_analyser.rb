@@ -3,6 +3,19 @@ class MacbethAnalyser
 require 'nokogiri'
 require 'open-uri'
 
+  def lines_per(speaker)
+    speeches = []
+    lines = 0
+
+    open_file.css("speech").each do |speech|
+      if speech.css('speaker').text == speaker
+        lines += speech.css('line').count
+      end
+    end
+
+    lines
+  end
+
   def speakers
     speakers = Set.new
 
