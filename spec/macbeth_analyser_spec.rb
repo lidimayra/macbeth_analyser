@@ -4,6 +4,11 @@ require_relative '../lib/macbeth_analyser'
 describe 'Macbeth Analyser' do
   let(:macbeth_analyser) { MacbethAnalyser.new }
 
+  before do
+    allow(macbeth_analyser).to receive(:open_file)
+      .and_return(Nokogiri::HTML open('spec/dummy_file.xml'))
+  end
+
   context 'when opening Macbeth file' do
     subject { macbeth_analyser.open_file }
     it { is_expected.to be_a Nokogiri::XML::Document }
@@ -11,40 +16,39 @@ describe 'Macbeth Analyser' do
 
   context 'when reading speakers' do
     subject(:speakers) { macbeth_analyser.speakers }
-
-    it 'returns distinct speakers' do
-      expect(speakers.count).to eq 40
-    end
+    it { is_expected.to eq Set.new ['John Doe', 'Jane Doe', 'Joe Sixpack'] }
   end
 
   context 'when counting lines per speaker' do
     subject { macbeth_analyser.lines_per speaker }
 
-    context 'for Soldiers' do
-      let(:speaker) { 'Soldiers' }
-      it { is_expected.to eq 1 }
+    context 'for John Doe' do
+      let(:speaker) { 'John Doe' }
+      it { is_expected.to eq 2 }
     end
 
-    context 'for Lord' do
-      let(:speaker) { 'Lord' }
-      it { is_expected.to eq 21 }
+    context 'for Jane Doe' do
+      let(:speaker) { 'Jane Doe' }
+      it { is_expected.to eq 5 }
     end
 
-    context 'for Gentlewoman' do
-      let(:speaker) { 'Gentlewoman' }
-      it { is_expected.to eq 23 }
+    context 'for Joe Sixpack' do
+      let(:speaker) { 'Joe Sixpack' }
+      it { is_expected.to eq 2 }
     end
   end
 
   context 'when listing every line count per speaker' do
-    subject { macbeth_analyser.lines_per_each_speaker }
-
-    let(:output) do
-      macbeth_analyser.speakers.each do |speaker|
-        "#{macbeth_analyser.lines_per speaker} #{speaker}"
-      end
+    subject(:lines_per_each_speaker) do
+      macbeth_analyser.lines_per_each_speaker
     end
 
-    it { is_expected.to eq output }
+    let(:output_message) do
+      "2 John Doe\n5 Jane Doe\n2 Joe Sixpack\n"
+    end
+
+    it 'presents line count side by side with speaker name' do
+      expect { lines_per_each_speaker }.to output(output_message).to_stdout
+    end
   end
 end

@@ -1,0 +1,25 @@
+<TITLE>Dummy File</TITLE>
+
+<SPEECH>
+  <SPEAKER>John Doe</SPEAKER>
+    <LINE>Line 1</LINE>
+</SPEECH>
+
+<SPEECH>
+  <SPEAKER>Jane Doe</SPEAKER>
+    <LINE>Line 1</LINE>
+    <LINE>Line 2</LINE>
+    <LINE>Line 3</LINE>
+</SPEECH>
+
+<SPEECH>
+  <SPEAKER>Joe Sixpack</SPEAKER>
+  <SPEAKER>Jane Doe</SPEAKER>
+    <LINE>Line 1</LINE>
+    <LINE>Line 2</LINE>
+</SPEECH>
+
+<SPEECH>
+  <SPEAKER>John Doe</SPEAKER>
+    <LINE>Line 1</LINE>
+</SPEECH>
