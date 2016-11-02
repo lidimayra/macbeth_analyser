@@ -11,21 +11,21 @@ require 'set'
   end
 
   def lines_per(speaker)
-    lines = 0
+    count = 0
 
-    open_file.css("speech").each do |speech|
-      if speech.css('speaker').text == speaker
-        lines += speech.css('line').count
+    open_file.css('speech').each do |speech|
+      speech.css('speaker').each do |speech_speaker|
+        count += speech.css('line').count if speech_speaker.text == speaker
       end
     end
 
-    lines
+    count
   end
 
   def speakers
     speakers = Set.new
 
-    open_file.css("speaker").each do |speaker|
+    open_file.css('speaker').each do |speaker|
       speakers.add(speaker.text) unless speaker.text == 'ALL'
     end
 
@@ -33,7 +33,7 @@ require 'set'
   end
 
   def open_file
-    url = "http://www.ibiblio.org/xml/examples/shakespeare/macbeth.xml"
+    url = 'http://www.ibiblio.org/xml/examples/shakespeare/macbeth.xml'
     @content ||= Nokogiri::HTML open(url)
   end
 
